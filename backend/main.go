@@ -1,31 +1,23 @@
 package main
 
 import (
-	"net/http"
+	"fmt"
+	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"github.com/vitkarpov/ValushaJS/backend/db"
+	"github.com/vitkarpov/ValushaJS/backend/handlers"
 )
 
-type comment struct {
-	ID         string `json:"id"`
-	AuthorName string `json:"authorName"`
-	Comment    string `json:"comment"`
-	ParentId   string `json:"parentId"`
-}
-
-var comments = []comment{
-	{ID: "1", Comment: "Hello, world"},
-	{ID: "2", Comment: "Yo, how's it going", ParentId: "1"},
-	{ID: "2", Comment: "What's going on here?"},
-}
-
-func getComments(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, comments)
-}
-
 func main() {
+	godotenv.Load()
 	router := gin.Default()
-	router.GET("/comments", getComments)
-
-	router.Run("localhost:8080")
+	dbInstance, err := db.Initialize()
+	if err != nil {
+		log.Fatalln(fmt.Printf("Cannot connect to database: %s", err.Error()))
+	}
+	defer dbInstance.Conn.Close()
+	handlers.GetCommentsHandler(router, dbInstance)
+	router.Run()
 }
