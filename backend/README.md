@@ -2,6 +2,14 @@
 
 - Golang & Gin
 
+## Development
+
+```sh
+$ make postgres
+$ make createdb
+$ make migrate
+```
+
 ## POST /sign-in
 
 Sign in with a Google account to leave comments. A token is returned in response, which should be added to `Authorization: Bearer` header in further POST requests.

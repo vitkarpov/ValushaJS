@@ -1,10 +1,10 @@
 package models
 
 type Comment struct {
-	ID         string `json:"id"`
+	ID         int    `json:"id"`
+	ParentID   int    `json:"parentId"`
 	AuthorName string `json:"authorName"`
 	Comment    string `json:"comment"`
-	ParentID   string `json:"parentId"`
 	CreatedAt  string `json:"createdAt"`
 }
 

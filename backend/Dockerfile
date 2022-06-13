@@ -1,5 +1,5 @@
 FROM golang:1.14.6-alpine3.12 as builder
-COPY go.mod go.sum /go/src/github.com/vitkarpov/valushajs/backend/
+COPY go.mod go.sum .env /go/src/github.com/vitkarpov/valushajs/backend/
 WORKDIR /go/src/github.com/vitkarpov/valushajs/backend
 RUN go mod download
 COPY . /go/src/github.com/vitkarpov/valushajs/backend
