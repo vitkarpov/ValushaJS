@@ -9,9 +9,8 @@ import (
 func (db Database) GetComments() *models.GetComments {
 	response := &models.GetComments{}
 	rows, err := db.Conn.Query("SELECT * FROM comments ORDER BY created_at DESC")
-	response.Error = err.Error()
 	if err != nil {
-		return response
+		log.Fatalf("Scan: %v", err)
 	}
 	for rows.Next() {
 		var comment models.Comment
