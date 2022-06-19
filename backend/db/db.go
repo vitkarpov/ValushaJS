@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
@@ -19,6 +20,8 @@ var ErrNoMatch = fmt.Errorf("no matching record")
 type Database struct {
 	Conn *sql.DB
 }
+
+var dbInstance Database
 
 func Initialize() (Database, error) {
 	username := os.Getenv("POSTGRES_USER")
@@ -36,5 +39,13 @@ func Initialize() (Database, error) {
 		return db, err
 	}
 	log.Println("Database connection established")
+	dbInstance = db
 	return db, nil
+}
+
+func SetContextMiddlware() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		ctx.Set("DB", dbInstance)
+		ctx.Next()
+	}
 }

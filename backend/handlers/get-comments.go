@@ -7,9 +7,8 @@ import (
 	"github.com/vitkarpov/ValushaJS/backend/db"
 )
 
-var dbInstance db.Database
-
 func getComments(c *gin.Context) {
+	dbInstance := c.Keys["DB"].(db.Database)
 	response := dbInstance.GetComments()
 	status := http.StatusOK
 	if response.Error != "" {
@@ -18,8 +17,7 @@ func getComments(c *gin.Context) {
 	c.IndentedJSON(status, response)
 }
 
-func GetCommentsHandler(router *gin.Engine, db db.Database) *gin.Engine {
-	dbInstance = db
+func GetCommentsHandler(router *gin.Engine) *gin.Engine {
 	router.GET("/comments", getComments)
 	return router
 }
