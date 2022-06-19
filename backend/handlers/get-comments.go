@@ -14,7 +14,7 @@ func getComments(c *gin.Context) {
 	if response.Error != "" {
 		status = http.StatusInternalServerError
 	}
-	c.IndentedJSON(status, response)
+	c.JSON(status, response)
 }
 
 func GetCommentsHandler(router *gin.Engine) *gin.Engine {

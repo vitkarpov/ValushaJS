@@ -14,7 +14,7 @@ func main() {
 	godotenv.Load()
 	router := gin.Default()
 	dbInstance, err := db.New()
-	router.Use(db.SetContextMiddlware())
+	router.Use(db.SetContextMiddlware(dbInstance))
 	if err != nil {
 		log.Fatalln(fmt.Printf("Cannot connect to database: %s", err.Error()))
 	}

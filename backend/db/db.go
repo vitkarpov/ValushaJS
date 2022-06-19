@@ -21,8 +21,6 @@ type Database struct {
 	Conn *sql.DB
 }
 
-var dbInstance Database
-
 func New() (Database, error) {
 	username := os.Getenv("POSTGRES_USER")
 	password := os.Getenv("POSTGRES_PASSWORD")
@@ -39,13 +37,12 @@ func New() (Database, error) {
 		return db, err
 	}
 	log.Println("Database connection established")
-	dbInstance = db
 	return db, nil
 }
 
-func SetContextMiddlware() gin.HandlerFunc {
+func SetContextMiddlware(db Database) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		ctx.Set("DB", dbInstance)
+		ctx.Set("DB", db)
 		ctx.Next()
 	}
 }
