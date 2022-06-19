@@ -13,7 +13,7 @@ import (
 func main() {
 	godotenv.Load()
 	router := gin.Default()
-	dbInstance, err := db.Initialize()
+	dbInstance, err := db.New()
 	router.Use(db.SetContextMiddlware())
 	if err != nil {
 		log.Fatalln(fmt.Printf("Cannot connect to database: %s", err.Error()))

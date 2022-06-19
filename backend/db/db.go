@@ -23,7 +23,7 @@ type Database struct {
 
 var dbInstance Database
 
-func Initialize() (Database, error) {
+func New() (Database, error) {
 	username := os.Getenv("POSTGRES_USER")
 	password := os.Getenv("POSTGRES_PASSWORD")
 	database := os.Getenv("POSTGRES_DB")
