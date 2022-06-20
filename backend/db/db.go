@@ -4,10 +4,11 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"github.com/vitkarpov/ValushaJS/backend/models"
 )
 
 const (
@@ -21,10 +22,11 @@ type Database struct {
 	Conn *sql.DB
 }
 
-func New() (Database, error) {
-	username := os.Getenv("POSTGRES_USER")
-	password := os.Getenv("POSTGRES_PASSWORD")
-	database := os.Getenv("POSTGRES_DB")
+func NewDatabase(config *models.Config) (Database, error) {
+	godotenv.Load()
+	username := config.DatabaseUsername
+	password := config.DatabasePassword
+	database := config.DatabaseName
 	db := Database{}
 	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", HOST, PORT, username, password, database)
 	conn, err := sql.Open("postgres", dsn)
