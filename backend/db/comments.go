@@ -8,17 +8,17 @@ import (
 
 func (db Database) GetComments() *models.GetComments {
 	response := &models.GetComments{}
-	rows, err := db.Conn.Query("SELECT * FROM comments ORDER BY created_at DESC")
+	_, err := db.Conn.Query("SELECT * FROM comments ORDER BY created_at DESC")
 	if err != nil {
 		log.Fatalf("Scan: %v", err)
 	}
-	for rows.Next() {
-		var comment models.Comment
-		err := rows.Scan(&comment.ID, &comment.ParentID, &comment.AuthorName, &comment.Comment, &comment.CreatedAt)
-		if err != nil {
-			log.Fatalf("Scan: %v", err)
-		}
-		response.Comments = append(response.Comments, comment)
-	}
+	// for rows.Next() {
+	// 	var comment models.Comment
+	// 	err := rows.Scan(&comment.ID, &comment.ParentID, &comment.AuthorName, &comment.Comment, &comment.CreatedAt)
+	// 	if err != nil {
+	// 		log.Fatalf("Scan: %v", err)
+	// 	}
+	// 	response.Comments = append(response.Comments, comment)
+	// }
 	return response
 }
