@@ -30,4 +30,16 @@ jobs:
 
     - name: Test
       working-directory: ./backend
-      run: go test -v ./...
+      run: |
+        export GOPATH="$HOME/go/"
+        export PATH=$PATH:$GOPATH/bin
+        go install github.com/golang/mock/mockgen@v1.6.0
+        go install github.com/jstemmer/go-junit-report@latest
+        go generate ./...
+        go test -v ./... | go-junit-report -set-exit-code > report.xml
+
+    - name: Report
+      uses: test-summary/action@v1
+      with:
+        paths: ./backend/report.xml
+      if: always()
