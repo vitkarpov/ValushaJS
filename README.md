@@ -1,5 +1,7 @@
 # ValushaJS
 
+[![Go](https://github.com/vitkarpov/ValushaJS/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/vitkarpov/ValushaJS/actions/workflows/go.yml)
+
 📜 ValushaJS – встраиваемая система комментариев для вашего сайта (фронтенд и бекенд)
 
 Подробнее: https://docs.google.com/document/d/1uErudNXKB6k9V-HPECQdADDrWdYx48J-AjWXJ-UtUJw/edit?usp=sharing
